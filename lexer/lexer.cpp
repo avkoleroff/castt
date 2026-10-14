@@ -177,12 +177,10 @@ void analysis() {
     Token token;
 
     while ((token = lexer.nextToken()).type != TokenType::END_OF_FILE) {
-        cout << "[" << typeToString(token.type) << "] \"" 
-             << token.value << "\" (" << token.line << ", " << token.col << ")\n";
+        cout << "[" << typeToString(token.type) << "] \"" << token.value << "\" (" << token.line << ", " << token.col << ")\n";
     }
     
-    cout << "[" << typeToString(token.type) << "] \"" 
-         << token.value << "\" (" << token.line << ", " << token.col << ")\n";
+    cout << "[" << typeToString(token.type) << "] \"" << token.value << "\" (" << token.line << ", " << token.col << ")\n";
 }
 
 signed main() {
