@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 #include "lexer.hpp"
+
+#define int long long
 using namespace std;
 
 
