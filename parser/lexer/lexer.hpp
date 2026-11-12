@@ -24,29 +24,29 @@ struct Token {
     int col;
 };
 
-bool isLetter(char c) {
+inline bool isLetter(char c) {
     if (std::isalpha(static_cast<unsigned char>(c))) return true;
     if ((unsigned char)c >= 0x80) return true;
     return false;
 }
 
-bool isDigit(char c) {
+inline bool isDigit(char c) {
     return c >= '0' && c <= '9';
 }
 
-bool isSymbol(char c) {
+inline bool isSymbol(char c) {
     std::string symbols = ".,:;!?-+=*/()[]{}<>_|&^~%";
     return symbols.find(c) != std::string::npos;
 }
 
-std::string trim(const std::string& s) {
+inline std::string trim(const std::string& s) {
     size_t start = s.find_first_not_of(" \t\n\r");
     if (start == std::string::npos) return "";
     size_t end = s.find_last_not_of(" \t\n\r");
     return s.substr(start, end - start + 1);
 }
 
-std::string normalizeSpaces(const std::string& s) {
+inline std::string normalizeSpaces(const std::string& s) {
     std::string res;
     bool inSpace = false;
     for (char c : s) {
@@ -241,7 +241,7 @@ public:
             return {TokenType::NEWLINE, "\\n", startLine, startCol};
         }
 
-        if (isLetter(c)) {
+        if (isLetter(c) || c == '_') {
             size_t savedPos = pos;
             int savedLine = line;
             int savedCol = col;
@@ -253,7 +253,7 @@ public:
                 bool isWordBoundary = true;
                 if (endPos < source.length()) {
                     char nextC = source[endPos];
-                    if (isLetter(nextC) || isDigit(nextC)) {
+                    if (isLetter(nextC) || isDigit(nextC) || nextC == '_') {
                         isWordBoundary = false;
                     }
                 }
@@ -274,7 +274,7 @@ public:
             col = savedCol;
             
             std::string val = "";
-            while (isLetter(current()) || isDigit(current())) {
+            while (isLetter(current()) || isDigit(current()) || current() == '_') {
                 val += current();
                 advance();
             }
@@ -311,7 +311,8 @@ public:
                     advance();
                 }
             }
-            if (current() == '"') advance();
+            if (current() != '"') return {TokenType::UNKNOWN, val, startLine, startCol};
+            advance();
             return {TokenType::STRING, val, startLine, startCol};
         }
 
@@ -327,7 +328,8 @@ public:
                     advance();
                 }
             }
-            if (current() == '\'') advance();
+            if (current() != '\'') return {TokenType::UNKNOWN, val, startLine, startCol};
+            advance();
             return {TokenType::CHAR, val, startLine, startCol};
         }
 
@@ -352,7 +354,7 @@ public:
     }
 };
 
-std::string typeToString(TokenType type) {
+inline std::string typeToString(TokenType type) {
     switch (type) {
         case TokenType::IDENTIFIER:  return "IDENTIFIER";
         case TokenType::KEYWORD:     return "KEYWORD";
