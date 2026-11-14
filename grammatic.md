@@ -1,3 +1,7 @@
+# Грамматика
+
+``` cpp
+
 <программа> ::= { <структура> } { <функция> } { <statement> }
 <statement> ::= <объявлениепеременной> | <присваивание> | <ввод> | <вывод> | <if> | <while> | <for> | <вызовинструкция> | <созданиеструктуры> | <преобразованиетипа> | <return>
 
@@ -57,13 +61,8 @@
 <expression5> ::= <expression4> { <operation5> <expression4> }
 <expression4> ::= <expression3> { <operation4> <expression3> }
 <expression3> ::= <expression2> { <operation3> <expression2> }
-<<<<<<< HEAD
-<expression2> ::= <operation2> <expression2> | <expression1>
-<expression1> ::= true | false | <name> | <int_number> | <expression> 
-=======
 <expression2> ::= <operation2> <expression2> | <expression1> | <operationинкремент> <цельприсваивания>
 <expression1> ::= <основавыражения> { <индексилиполе> }
->>>>>>> 119e438 (инкремент фикс)
 
 <operation13> ::= ","
 <operation12> ::= "||"
