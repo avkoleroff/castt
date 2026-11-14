@@ -337,7 +337,9 @@ public:
             std::string val(1, c);
             advance();
             
-            if (c == '|' && current() == '|') { val += current(); advance(); }
+            if      (c == '+' && current() == '+') { val += current(); advance(); }
+            else if (c == '-' && current() == '-') { val += current(); advance(); }
+            else if (c == '|' && current() == '|') { val += current(); advance(); }
             else if (c == '&' && current() == '&') { val += current(); advance(); }
             else if (c == '=' && current() == '=') { val += current(); advance(); }
             else if (c == '!' && current() == '=') { val += current(); advance(); }

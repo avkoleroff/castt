@@ -246,7 +246,16 @@ shared_ptr<ExprNode> Parser::parseExprLevel1() {
     return parsePostfix(parseBaseExpr());
 }
 
-shared_ptr<ExprNode> Parser::parseExprLevel2() {
+std::shared_ptr<ExprNode> Parser::parseExprLevel2() {
+    if (checkSym("++") || checkSym("--")) {
+        auto node = makeNode<ExprNode>(cur_);
+        node->kind  = ExprNode::UNARY;
+        node->value = cur_.value;
+        advance();
+        node->right = parseAssignTargetExpr(); 
+        return node;
+    }
+
     if (checkSym("-") || checkSym("!") || checkSym("~")) {
         auto node = makeNode<ExprNode>(cur_);
         node->kind  = ExprNode::UNARY;
@@ -315,6 +324,12 @@ void Parser::parseAssignTarget(AssignNode& a) {
         full = full->left;
     }
     a.targets.assign(rev.rbegin(), rev.rend());
+}
+
+shared_ptr<ExprNode> Parser::parseAssignTargetExpr() {
+    if (!check(TokenType::IDENTIFIER))
+        fail("ожидается цель присваивания (имя)");
+    return parsePostfix(parseNameExpr());
 }
 
 // statement
@@ -485,6 +500,14 @@ shared_ptr<StmtNode> Parser::parseEmpty() {
     return stmt;
 }
 
+shared_ptr<StmtNode> Parser::parseExprStmt() {
+    auto stmt = makeNode<StmtNode>(cur_);
+    stmt->kind = StmtNode::EXPR_STMT;
+    stmt->expr = parseExpression();
+    expectSym(".");
+    return stmt;
+}
+
 // парсер statement
 
 shared_ptr<StmtNode> Parser::parseStmt() {
@@ -497,8 +520,10 @@ shared_ptr<StmtNode> Parser::parseStmt() {
     if (checkKw("О великие силы повторения")) return parseWhile();
     if (checkKw("О хранители пути")) return parseFor();
     if (checkKw("Да исполнится")) return parseCallStmt();
-    if (checkKw("Да станет ответом") || checkKw("Да завершится призыв"))
-        return parseReturn();
+    if (checkKw("Да станет ответом") || checkKw("Да завершится призыв")) return parseReturn();
+    if (checkSym("++") || checkSym("--") ||
+    checkKw("воплощение") || checkKw("Исполнение заклинания") ||
+    checkKw("взываю к Преображению с даром")) return parseExprStmt();
     fail("ожидается инструкция");
     return nullptr;
 }

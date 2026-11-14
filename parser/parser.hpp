@@ -51,7 +51,7 @@ struct AssignNode {
 struct StmtNode {
     enum Kind {
         VAR_DECL, ASSIGN, INPUT, OUTPUT,
-        IF, WHILE, FOR, CALL_STMT, RETURN, RETURN_VOID, EMPTY
+        IF, WHILE, FOR, CALL_STMT, RETURN, RETURN_VOID, EMPTY, EXPR_STMT
     } kind;
     shared_ptr<VarDeclNode> varDecl;
     vector<shared_ptr<VarDeclNode>> varDecls;
@@ -67,6 +67,7 @@ struct StmtNode {
 
     string callName;
     shared_ptr<ExprNode> retValue;
+    shared_ptr<ExprNode> expr;
     int line = 0, col = 0;
 };
 
@@ -162,6 +163,7 @@ bool nextIsTypeStart();
     shared_ptr<ExprNode> parseExprLevel3();
     shared_ptr<ExprNode> parseExprLevel2();
     shared_ptr<ExprNode> parseExprLevel1();
+    shared_ptr<StmtNode> parseExprStmt();
     shared_ptr<ExprNode> parseBaseExpr();
     shared_ptr<ExprNode> parseNameExpr();
     shared_ptr<ExprNode> parseCast();
@@ -182,6 +184,7 @@ bool nextIsTypeStart();
     shared_ptr<StmtNode> parseEmpty();
     vector<shared_ptr<StmtNode>> parseBlock();
     void parseAssignTarget(AssignNode& a); 
+    std::shared_ptr<ExprNode> parseAssignTargetExpr();
 
     // декларации
     shared_ptr<FuncNode> parseFunction();
