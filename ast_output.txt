@@ -1,0 +1,69 @@
+АСТ
+Структуры:
+Enum'ы:
+Функции:
+  Функция: тест() -> ничто
+    var_decl: целое икс
+    var_decl: дробное игрек
+    var_decl: логическое флаг
+    var_decl: символ буковка
+    var_decl: строка строченька
+  Функция: пузырьковая_сортировка(целое андрей) -> ничто
+    var_decl: логическое флажочек
+    while
+      name: флажочек
+      assign
+        name: флажочек
+        bool: ложь
+      for
+        var: итер
+        from:
+          int: 0
+        to:
+          int: 8
+        step:
+          int: 1
+        if
+          binary: >
+            expr: 
+            expr: 
+          var_decl: целое temp
+          assign
+            name: массив
+            index
+            expr: 
+          assign
+            name: массив
+            index
+            name: temp
+          assign
+            name: флажочек
+            bool: истина
+
+Глобальные statement'ы:
+  var_decl: array[10] of целое массив
+  for
+    var: итер
+    from:
+      int: 0
+    to:
+      int: 9
+    step:
+      int: 1
+    output
+      expr: 
+  call_stmt: пузырьковая_сортировка
+    binary: ,
+      name: массив
+      int: 6
+  for
+    var: i
+    from:
+      int: 0
+    to:
+      int: 9
+    step:
+      int: 1
+    output
+      expr: 
+EOF

@@ -1,4 +1,6 @@
-```
+# БНФ
+
+``` cpp
 <программа> ::= { <структура> } { <функция> } { <statement> }
 <statement> ::= <объявлениепеременной> | <присваивание> | <ввод> | <вывод> | <if> | <while> | <for> | <вызовинструкция> | <созданиеструктуры> | <преобразованиетипа> | <return>
 
@@ -46,33 +48,34 @@
 <вызовинструкция> ::= "Да исполнится" <name> "с дарами" "(" <аргументы> ")" "."
 <return> ::= "Да станет ответом" <expression> "." | "Да завершится призыв" "."
 
-<expression> ::= <expression13>
-<expression13> ::= <expression12> { <operation13> <expression12> }
-<expression12> ::= <expression11> { <operation12> <expression11> }
-<expression11> ::= <expression10> { <operation11> <expression10> }
-<expression10> ::= <expression9> { <operation10> <expression9> }
-<expression9> ::= <expression8> { <operation9> <expression8> }
-<expression8> ::= <expression7> { <operation8> <expression7> }
-<expression7> ::= <expression6> [ <operation7> <expression6> ]
-<expression6> ::= <expression5> [ <operation6> <expression5> ]
-<expression5> ::= <expression4> { <operation5> <expression4> }
-<expression4> ::= <expression3> { <operation4> <expression3> }
-<expression3> ::= <expression2> { <operation3> <expression2> }
-<expression2> ::= <operation2> <expression2> | <expression1>
-<expression1> ::= true | false | <name> | <int_number> | <expression> 
+<expression> ::= <expression14>
+<expression14> ::= <expression12> { <operation13> <expression12> }
+<expression13> ::= <expression11> { <operation12> <expression11> }
+<expression12> ::= <expression10> { <operation11> <expression10> }
+<expression11> ::= <expression9> { <operation10> <expression9> }
+<expression10> ::= <expression8> { <operation9> <expression8> }
+<expression9> ::= <expression7> { <operation8> <expression7> }
+<expression8> ::= <expression6> [ <operation7> <expression6> ]
+<expression7> ::= <expression5> [ <operation6> <expression5> ]
+<expression6> ::= <expression4> { <operation5> <expression4> }
+<expression5> ::= <expression3> { <operation4> <expression3> }
+<expression4> ::= <expression2> { <operation3> <expression2> }
+<expression3> ::= <operation2> <expression2> | <expression1>
+<expression> ::= true | false | <name> | <int_number> | <expression> 
 
-<operation13> ::= ","
-<operation12> ::= "||"
-<operation11> ::= "&&"
-<operation10> ::= "|"
-<operation9> ::= "^"
-<operation8> ::= "&"
-<operation7> ::= "==" | "!="
-<operation6> ::= "<" | ">" | ">=" | "<="
-<operation5> ::= "<<" | ">>"
-<operation4> ::= "+" | "-"
-<operation3> ::= "*" | "/" | "%"
-<operation2> ::= "-" | "~" | "!"
+<operation14> ::= ","
+<operation13> ::= "||"
+<operation12> ::= "&&"
+<operation11> ::= "|"
+<operation10> ::= "^"
+<operation9> ::= "&"
+<operation8> ::= "==" | "!="
+<operation7> ::= "<" | ">" | ">=" | "<="
+<operation6> ::= "<<" | ">>"
+<operation5> ::= "+" | "-"
+<operation4> ::= "*" | "/" | "%"
+<operation3> ::= "-" | "~" | "!"
+<operation2> ::= "++" | "--"
 
 <преобразованиетипа> ::= "взываю к Преображению с даром" "(" <expression> ")" "в" <тип>
 <name> ::= <character> { <character> | <digit> }
