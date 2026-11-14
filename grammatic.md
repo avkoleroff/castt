@@ -1,6 +1,3 @@
-# БНФ
-
-``` cpp
 <программа> ::= { <структура> } { <функция> } { <statement> }
 <statement> ::= <объявлениепеременной> | <присваивание> | <ввод> | <вывод> | <if> | <while> | <for> | <вызовинструкция> | <созданиеструктуры> | <преобразованиетипа> | <return>
 
@@ -12,12 +9,12 @@
 <цельприсваивания> ::= <name> { <индексилиполе> }
 <индексилиполе> ::= "[" <expression> "]" | "." <name>
 
-<ввод> ::= "Взываю к Слуху с даром" "(" <цельприсваивания> { ";" <цельприсваивания> } ")" "."SS
+<ввод> ::= "Взываю к Слуху с даром" "(" <цельприсваивания> { ";" <цельприсваивания> } ")" "."
 <вывод> ::= "Взываю к Голосу с даром" "(" <expression> { ";" <expression> } ")" "."
 
 <блок> ::= { <statement> }
 
-<if> ::= "Если истинно предзнаменование" "(" <expression> ")"  ", да свершится следующее" "."
+<if> ::= "Если истинно предзнаменование" "(" <expression> ")"  "да свершится следующее" "."
          <блок>
          [ "Если же нет, да свершится иное" "." <блок> ]
          "Да свершится предначертанное" "."
@@ -48,34 +45,39 @@
 <вызовинструкция> ::= "Да исполнится" <name> "с дарами" "(" <аргументы> ")" "."
 <return> ::= "Да станет ответом" <expression> "." | "Да завершится призыв" "."
 
-<expression> ::= <expression14>
-<expression14> ::= <expression12> { <operation13> <expression12> }
-<expression13> ::= <expression11> { <operation12> <expression11> }
-<expression12> ::= <expression10> { <operation11> <expression10> }
-<expression11> ::= <expression9> { <operation10> <expression9> }
-<expression10> ::= <expression8> { <operation9> <expression8> }
-<expression9> ::= <expression7> { <operation8> <expression7> }
-<expression8> ::= <expression6> [ <operation7> <expression6> ]
-<expression7> ::= <expression5> [ <operation6> <expression5> ]
-<expression6> ::= <expression4> { <operation5> <expression4> }
-<expression5> ::= <expression3> { <operation4> <expression3> }
-<expression4> ::= <expression2> { <operation3> <expression2> }
-<expression3> ::= <operation2> <expression2> | <expression1>
-<expression> ::= true | false | <name> | <int_number> | <expression> 
+<expression> ::= <expression13>
+<expression13> ::= <expression12> { <operation13> <expression12> }
+<expression12> ::= <expression11> { <operation12> <expression11> }
+<expression11> ::= <expression10> { <operation11> <expression10> }
+<expression10> ::= <expression9> { <operation10> <expression9> }
+<expression9> ::= <expression8> { <operation9> <expression8> }
+<expression8> ::= <expression7> { <operation8> <expression7> }
+<expression7> ::= <expression6> [ <operation7> <expression6> ]
+<expression6> ::= <expression5> [ <operation6> <expression5> ]
+<expression5> ::= <expression4> { <operation5> <expression4> }
+<expression4> ::= <expression3> { <operation4> <expression3> }
+<expression3> ::= <expression2> { <operation3> <expression2> }
+<<<<<<< HEAD
+<expression2> ::= <operation2> <expression2> | <expression1>
+<expression1> ::= true | false | <name> | <int_number> | <expression> 
+=======
+<expression2> ::= <operation2> <expression2> | <expression1> | <operationинкремент> <цельприсваивания>
+<expression1> ::= <основавыражения> { <индексилиполе> }
+>>>>>>> 119e438 (инкремент фикс)
 
-<operation14> ::= ","
-<operation13> ::= "||"
-<operation12> ::= "&&"
-<operation11> ::= "|"
-<operation10> ::= "^"
-<operation9> ::= "&"
-<operation8> ::= "==" | "!="
-<operation7> ::= "<" | ">" | ">=" | "<="
-<operation6> ::= "<<" | ">>"
-<operation5> ::= "+" | "-"
-<operation4> ::= "*" | "/" | "%"
-<operation3> ::= "-" | "~" | "!"
-<operation2> ::= "++" | "--"
+<operation13> ::= ","
+<operation12> ::= "||"
+<operation11> ::= "&&"
+<operation10> ::= "|"
+<operation9> ::= "^"
+<operation8> ::= "&"
+<operation7> ::= "==" | "!="
+<operation6> ::= "<" | ">" | ">=" | "<="
+<operation5> ::= "<<" | ">>"
+<operation4> ::= "+" | "-"
+<operation3> ::= "*" | "/" | "%"
+<operation2> ::= "-" | "~" | "!"
+<operationинкремент> ::= "++" | "--"
 
 <преобразованиетипа> ::= "взываю к Преображению с даром" "(" <expression> ")" "в" <тип>
 <name> ::= <character> { <character> | <digit> }
@@ -93,22 +95,3 @@
 <символтекста> ::= <letter> | <digit> | " " | <знак> | <спецсимвол>
 <знак> ::= "," | ":" | ";" | "!" | "?" | "-" | "+" | "*" | "/" | "=" | "(" | ")" | "[" | "]" | "{" | "}" | "<" | ">" | "_"
 <спецсимвол> ::= "\" | "\n" | "\t" | "\" | "'" | '"'
-```
-
-## Приоритет операций
-
-| Приоритет | Мэ                                                                     |
-| --------- | ---------------------------------------------------------------------- |
-| 1         | `()` - вызов функции; `[]` - индексирование; `.` - доступ к полю       |
-| 2         | `-` - унарный `минус`; `!` - `не`; `~` - `побитовое не`                |
-| 3         | `*` - `умножить на`; `/` - `разделить на`; `%` - `по модулю`           |
-| 4         | `+` - `плюс`; `-` - вычитание `минус`                                  |
-| 5         | `<<` - `сдвинуть влево на`; `>>` - `сдвинуть вправо на`                |
-| 6         | `<` - `меньше`; `<=` - `не больше`; `>` - `больше`; `>=` - `не меньше` |
-| 7         | `==` - `равно`; `!=` - `не равно`                                      |
-| 8         | `&` - `побитовое и`                                                    |
-| 9         | `^` - `побитовое исключающее или`                                      |
-| 10        | \| - `побитовое или`                                                   |
-| 11        | `&&` - `и`                                                             |
-| 12        | \|\| - `или`                                                           |
-| 13        | `,`                                                                    |
